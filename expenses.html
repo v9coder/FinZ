@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GenZ Finance App</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="expenses.html">Expenses</a></li>
+          <li><a href="goals.html">Goals</a></li>
+          <li><a href="learn.html">Learn</a></li>
+        </ul>
+      </nav>      
+    <form id="expense-form">
+        <input type="text" id="title" placeholder="Expense Title" required />
+        <input type="number" id="amount" placeholder="Amount" required />
+        <select id="category">
+            <option>Food</option><option>Transport</option><option>Shopping</option>
+        </select>
+        <button type="submit">Add Expense</button>
+        </form>
+        <ul id="expense-list"></ul>
+        <script src="assets/js/expenses.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenZ Finance App</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="expenses.html">Expenses</a></li>
+          <li><a href="goals.html">Goals</a></li>
+          <li><a href="learn.html">Learn</a></li>
+        </ul>
+      </nav>      
+    <input type="text" id="goalName" placeholder="Goal: e.g. Buy Laptop" />
+    <input type="number" id="goalAmount" placeholder="₹Amount" />
+    <button onclick="saveGoal()">Set Goal</button>
+    <div id="goal-output"></div>
+    <script src="assets/js/goals.js"></script>
+</body>
+</html>
