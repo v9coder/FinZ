@@ -1,18 +1,38 @@
-async function askChatbot(question) {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer YOUR_OPENAI_KEY",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: question }]
-      })
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('chat-input');
+    const chatBox = document.getElementById('chat-box');
+  
+    const responses = {
+      saving: "Start by saving 20% of your income each month. Automate it!",
+      budget: "Use the 50/30/20 rule: Needs/Wants/Savings.",
+      invest: "Consider mutual funds, SIPs, and low-cost index funds to begin.",
+      credit: "Always pay your credit card bills in full to avoid interest.",
+      default: "I recommend checking out YouTube channels like 'CA Rachana' or 'Invest Aaj For Kal' for Indian finance tips!"
+    };
+  
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const msg = input.value.trim();
+      if (!msg) return;
+  
+      addMessage("You", msg);
+  
+      let reply = Object.entries(responses).find(([keyword]) =>
+        msg.toLowerCase().includes(keyword)
+      );
+      reply = reply ? reply[1] : responses.default;
+  
+      setTimeout(() => addMessage("Advisor Bot", reply), 600);
+      input.value = "";
     });
   
-    const data = await response.json();
-    document.getElementById('chat-output').innerText = 
-      data.choices[0].message.content;
-  }
+    function addMessage(sender, text) {
+      const p = document.createElement('p');
+      p.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      p.className = 'mb-2';
+      chatBox.appendChild(p);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  });
   
