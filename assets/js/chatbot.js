@@ -1,38 +1,35 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('chat-form');
-    const input = document.getElementById('chat-input');
-    const chatBox = document.getElementById('chat-box');
-  
-    const responses = {
-      saving: "Start by saving 20% of your income each month. Automate it!",
-      budget: "Use the 50/30/20 rule: Needs/Wants/Savings.",
-      invest: "Consider mutual funds, SIPs, and low-cost index funds to begin.",
-      credit: "Always pay your credit card bills in full to avoid interest.",
-      default: "I recommend checking out YouTube channels like 'CA Rachana' or 'Invest Aaj For Kal' for Indian finance tips!"
-    };
-  
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const msg = input.value.trim();
-      if (!msg) return;
-  
-      addMessage("You", msg);
-  
-      let reply = Object.entries(responses).find(([keyword]) =>
-        msg.toLowerCase().includes(keyword)
-      );
-      reply = reply ? reply[1] : responses.default;
-  
-      setTimeout(() => addMessage("Advisor Bot", reply), 600);
-      input.value = "";
-    });
-  
-    function addMessage(sender, text) {
-      const p = document.createElement('p');
-      p.innerHTML = `<strong>${sender}:</strong> ${text}`;
-      p.className = 'mb-2';
-      chatBox.appendChild(p);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-  });
-  
+const form = document.getElementById("chat-form");
+const input = document.getElementById("chat-input");
+const chatBox = document.getElementById("chat-box");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const userMsg = input.value.trim();
+  if (!userMsg) return;
+
+  addMessage("You", userMsg, "right");
+  input.value = "";
+
+  // Fake bot reply (replace with real API later)
+  setTimeout(() => {
+    const botMsg = getBotResponse(userMsg);
+    addMessage("GenZ Bot", botMsg, "left");
+  }, 500);
+});
+
+function addMessage(sender, message, side) {
+  const msgEl = document.createElement("div");
+  msgEl.className = `max-w-xs p-2 rounded-lg ${side === "right" ? "bg-blue-100 self-end ml-auto" : "bg-gray-100 self-start"} text-gray-800`;
+  msgEl.innerHTML = `<strong>${sender}:</strong> ${message}`;
+  chatBox.appendChild(msgEl);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function getBotResponse(msg) {
+  msg = msg.toLowerCase();
+  if (msg.includes("save")) return "Start by setting aside 20% of your income every month!";
+  if (msg.includes("budget")) return "Track your income and split it using the 50/30/20 rule.";
+  if (msg.includes("invest")) return "Consider starting with mutual funds or SIPs!";
+  return "That's a great question! Let me get back to you on that. 😊";
+}

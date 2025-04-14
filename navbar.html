@@ -1,0 +1,39 @@
+<!-- navbar.html -->
+<nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-white text-lg font-semibold">GenZ Finance</a>
+      
+      <ul class="flex space-x-4 items-center">
+        <li><a href="index.html" class="text-gray-300 hover:text-white">Dashboard</a></li>
+        <li><a href="expenses.html" class="text-gray-300 hover:text-white">Expenses</a></li>
+        <li><a href="goals.html" class="text-gray-300 hover:text-white">Goals</a></li>
+        <li><a href="learn.html" class="text-gray-300 hover:text-white">Learn</a></li>
+        <li id="auth-area"></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Firebase Auth Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script>
+    firebase.auth().onAuthStateChanged(user => {
+      const authArea = document.getElementById("auth-area");
+      if (user) {
+        authArea.innerHTML = `
+          <button id="logout-btn" class="ml-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Logout</button>
+        `;
+        document.getElementById("logout-btn").addEventListener("click", () => {
+          firebase.auth().signOut().then(() => {
+            window.location.href = "login.html";
+          });
+        });
+      } else {
+        authArea.innerHTML = `
+          <a href="login.html" class="ml-4 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Login</a>
+        `;
+      }
+    });
+  </script>
+  
