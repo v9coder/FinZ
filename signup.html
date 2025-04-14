@@ -6,11 +6,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-
   <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
     <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">Create Your GenZ Account</h2>
-    
+
     <form id="signup-form">
+      <label for="full-name" class="block text-gray-600 mb-1">Full Name</label>
+      <input type="text" id="full-name" required class="w-full border p-2 mb-4 rounded" placeholder="John Doe">
+
+      <label for="profile-pic" class="block text-gray-600 mb-1">Profile Picture URL</label>
+      <input type="url" id="profile-pic" required class="w-full border p-2 mb-4 rounded" placeholder="https://example.com/image.jpg">
+
       <label for="email" class="block text-gray-600 mb-1">Email</label>
       <input type="email" id="email" required class="w-full border p-2 mb-4 rounded" placeholder="you@example.com">
 
@@ -28,12 +33,11 @@
     </p>
   </div>
 
-  <!-- Firebase SDK + Config -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-  <!-- <script src="firebase-config.js"></script> -->
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="assets/js/firebase-config.js"></script>
   <script src="assets/js/signup.js"></script>
-
 </body>
 </html>

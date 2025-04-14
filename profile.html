@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Firebase Config (compat version) -->
+  <script src="https://www.gstatic.com/firebasejs/9.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.8.0/firebase-firestore-compat.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+  <!-- Navbar -->
+  <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <img src="assets/logo.jpg" alt="Finz Logo" class="h-12 w-12 rounded-full">
+        <div class="text-white text-xl font-bold">FinZ</div>
+      </div>
+      
+      <!-- Navbar Links -->
+      <ul class="flex space-x-4">
+        <li><a href="index.html" class="text-gray-300 hover:text-white">Dashboard</a></li>
+        <li><a href="expenses.html" class="text-gray-300 hover:text-white">Expenses</a></li>
+        <li><a href="goals.html" class="text-gray-300 hover:text-white">Goals</a></li>
+        <li><a href="learn.html" class="text-gray-300 hover:text-white">Learn</a></li>
+      </ul>
+
+      <!-- Profile Icon Tile (Top-right corner) -->
+      <a href="profile.html" class="flex items-center justify-center w-10 h-10 bg-blue-500 rounded-full text-white hover:bg-blue-600">
+        <span class="material-icons">account_circle</span>
+      </a>
+    </div>
+  </nav>
+
+
+<body class="bg-gray-100 font-sans">
+  <div class="flex items-center justify-center min-h-screen">
+    <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+      <img id="profile-pic" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-blue-500" src="https://via.placeholder.com/100" alt="Profile Picture" />
+      <h2 id="user-name" class="text-2xl font-semibold text-gray-800 mb-1">Loading...</h2>
+      <p id="user-email" class="text-gray-600 mb-2"></p>
+      <p id="extra-info" class="text-sm text-gray-500 mb-4">Fetching profile data...</p>
+      <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-medium">Logout</button>
+    </div>
+  </div>
+
+  <!-- Firebase Config & Logic -->   <script>
+    // Firebase Config (Non-modular compat version)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCCQAgCLbvp8_t0PGoZkfi-hcF-_fEuFPs",
+      authDomain: "finz-3f5b7.firebaseapp.com",
+      projectId: "finz-3f5b7",
+      storageBucket: "finz-3f5b7.firebasestorage.app",
+      messagingSenderId: "528130886102",
+      appId: "1:528130886102:web:73a6ba79c184e6dfaa3c77"
+    };
+    
+    // Initialize Firebase (with compat)
+    firebase.initializeApp(firebaseConfig);
+
+    // Get Auth and Firestore services
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Monitor authentication state
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // Update UI with user data
+        document.getElementById("user-name").textContent = user.displayName || "No Name";
+        document.getElementById("user-email").textContent = user.email;
+        document.getElementById("profile-pic").src = user.photoURL || "https://via.placeholder.com/100";
+
+        try {
+          // Fetch additional user data from Firestore
+          const doc = await db.collection("users").doc(user.uid).get();
+          if (doc.exists) {
+            const data = doc.data();
+            document.getElementById("extra-info").textContent =
+              `Role: ${data.role || "N/A"}, Joined: ${data.joinedDate || "N/A"}`;
+          } else {
+            document.getElementById("extra-info").textContent = "No extra profile data found.";
+          }
+        } catch (err) {
+          console.error("Error getting document:", err);
+          document.getElementById("extra-info").textContent = "Error loading extra data.";
+        }
+      } else {
+        // If no user is logged in, redirect to login page
+        window.location.href = "login.html";
+      }
+    });
+
+    // Logout function
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      }).catch((error) => {
+        console.error("Error signing out: ", error);
+      });
+    }
+  </script>
+</body>
+</html>

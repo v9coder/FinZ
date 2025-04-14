@@ -1,11 +1,13 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyCCQAgCLbvp8_t0PGoZkfi-hcF-_fEuFPs",
-    authDomain: "finz-3f5b7.firebaseapp.com",
-    projectId: "finz-3f5b7",
-    storageBucket: "finz-3f5b7.firebasestorage.app",
-    messagingSenderId: "528130886102",
-    appId: "1:528130886102:web:73a6ba79c184e6dfaa3c77"
-  };
+// Using the compat version (firebase-auth-compat.js)
+const auth = firebase.auth();
 
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
+// Optional: Helper to get current user info
+function getCurrentUser(callback) {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      callback(user);
+    } else {
+      callback(null);  // Not logged in
+    }
+  });
+}
