@@ -4,7 +4,7 @@
 **Finz** is an AI-powered financial advisor designed to help Gen Z manage money like pros. From tracking daily expenses to getting personalized financial tips and investment advice — Finz has your back!
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/your-image-link.png" alt="Finz Banner" width="100%">
+  <img src="https://github.com/v9coder/FinZ/blob/main/assets/logo.jpg?raw=true" alt="Finz Banner" width="200">
 </p>
 
 ---
