@@ -10,7 +10,8 @@
 ---
 
 ## 🔗 Live Demo
-[Visit Finz Website]((https://finzzz.netlify.app/))
+
+👉 [Visit Finz Website](https://finzzz.netlify.app/)
 
 ---
 
