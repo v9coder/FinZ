@@ -10,7 +10,7 @@
 ---
 
 ## 🔗 Live Demo
-[Visit Finz Website](https://genuine-pie-3a651c.netlify.app/login)
+[Visit Finz Website](finzzz.netlify.app/login)
 
 ---
 
